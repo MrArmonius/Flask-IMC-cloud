@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Index{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+  <form method="post">
+    <label for="weight">Poids (en kg)</label>
+    <input type="number" step="0.5" name="weight" id="weight" required>
+    <label for="height">Hauteur (en cm)</label>
+    <input type="number" step="1" name="height" id="height" required>
+    <input type="submit" value="IMC">
+  </form>
+
+  {% if Imc %}
+  <span>Votre Imc: {{ Imc }}</span>
+  {% endif %}
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Nom</th>
+        <th scope="col">Poids</th>
+        <th scope="col">Hauteur</th>
+        <th scope="col">IMC</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for data in Data_base %}
+      <tr>
+        <th scope="row">{{ data['id'] }}</th>
+        <td>{{ data['name'] }}</td>
+        <td>{{ data['weight'] }}</td>
+        <td>{{ data['height'] }}</td>
+        <td>{{ data['imc'] }}</td>
+      </tr>
+      {% endfor %}
+      
+    </tbody>
+  </table>
+
+{% endblock %}
