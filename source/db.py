@@ -11,7 +11,7 @@ def get_db():
             passwd=current_app.config['DATABASE_PASSWD']
         )
 
-    return g.db
+    return g.db 
 
 
 def close_db(e=None):
@@ -26,7 +26,7 @@ def init_db():
     with current_app.open_resource('schema.sql') as f:
         with db.cursor() as cursor:
             cursor.execute(f.read().decode('utf8'), multi=True)
-        db.commit()
+    db.commit()
         
 def execute_db(query_db):
     db = get_db()
