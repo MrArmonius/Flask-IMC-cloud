@@ -8,10 +8,10 @@ def create_app(test_config=None):
     # create and configure the app
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_mapping(
-        SECRET_KEY='dev',
-        DATABASE='address',
-        DATABASE_USER='address',
-        DATABASE_PASSWD='address',
+        SECRET_KEY='your_secret_key',
+        DATABASE='tp1_cloud',
+        DATABASE_USER='tp1_server',
+        DATABASE_PASSWD='your_password',
     )
 
     from . import db

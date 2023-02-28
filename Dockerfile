@@ -7,4 +7,6 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
-CMD [ "python", "./your-daemon-or-script.py" ]
+ENV FLASK_APP=source
+
+CMD [ "flask", "run", "--host", "0.0.0.0" ]
