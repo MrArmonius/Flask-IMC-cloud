@@ -1,7 +1,8 @@
 version: "3"
 services:
   flask:
-    build: .
+    # build: .
+    image: mrarmonius/flask_imc_cloud-tp
     ports:
       - "8080:5000"
     networks:
