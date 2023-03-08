@@ -1,0 +1,31 @@
+version: "3"
+services:
+  flask:
+    build: .
+    ports:
+      - "8080:5000"
+    networks:
+      - database_network
+    depends_on:
+        mysql_server:
+          condition: service_healthy
+
+  mysql_server:
+    image: "mysql/mysql-server:latest"
+    environment:
+      - "MYSQL_ROOT_PASSWORD=root"
+      - "MYSQL_USER=tp1_server"
+      - "MYSQL_PASSWORD=your_password"
+      - "MYSQL_DATABASE=tp1_cloud"
+    volumes:
+      - ./source/schema.sql:/docker-entrypoint-initdb.d/schema.sql:ro
+    networks:
+      - database_network
+    healthcheck:
+      test: mysqladmin ping -h localhost -u root -p$$MYSQL_ROOT_PASSWORD
+      timeout: 10s
+      retries: 10
+  
+networks:
+  database_network:
+    driver: bridge
