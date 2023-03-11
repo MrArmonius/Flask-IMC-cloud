@@ -1,15 +1,30 @@
 version: "3"
 services:
   flask:
-    # build: .
-    image: mrarmonius/flask_imc_cloud-tp
+    build: .
+    # image: mrarmonius/flask_imc_cloud-tp
     ports:
       - "8080:5000"
     networks:
       - database_network
+      - web_network
     depends_on:
         mysql_server:
           condition: service_healthy
+        
+  nginx:
+    image: nginx
+    volumes:
+      - ./source/static:/usr/src/app/static:ro
+      - ./nginx:/etc/nginx/conf.d
+    ports:
+      - "80:80"
+      - "443:443"
+    networks:
+      - web_network
+    depends_on:
+      flask:
+        condition: service_started
 
   mysql_server:
     image: "mysql/mysql-server:latest"
@@ -29,4 +44,6 @@ services:
   
 networks:
   database_network:
+    driver: bridge
+  web_network:
     driver: bridge
