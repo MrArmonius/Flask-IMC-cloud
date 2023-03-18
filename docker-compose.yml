@@ -16,7 +16,12 @@ services:
     image: nginx
     volumes:
       - ./source/static:/usr/src/app/static:ro
-      - ./nginx:/etc/nginx/conf.d
+      - ./nginx/tp_cloud.conf:/etc/nginx/conf.d/tp_cloud.conf
+      - ./nginx/ssl/certs/nginx-selfsigned.crt:/etc/ssl/certs/nginx-selfsigned.crt
+      - ./nginx/ssl/private/nginx-selfsigned.key:/etc/ssl/private/nginx-selfsigned.key
+      - ./nginx/snippets/ssl-params.conf:/etc/nginx/snippets/ssl-params.conf
+      - ./nginx/snippets/self-signed.conf:/etc/nginx/snippets/self-signed.conf
+      - ./nginx/dhparam.pem:/etc/nginx/dhparam.pem
     ports:
       - "80:80"
       - "443:443"
