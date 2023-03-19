@@ -130,4 +130,6 @@ dmypy.json
 
 
 ## Terraform files:
+Terraform/.terraform*
 Terraform/terraform*
+Terraform/uqac_azure.pem
