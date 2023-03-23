@@ -1,0 +1,30 @@
+---
+
+- hosts: all
+  become: true
+  tasks:
+  - name: Update apt all packages
+    apt: update_cache=yes force_apt_get=yes cache_valid_time=3600
+
+  - name: Install pip3, docker.io, docker-compose
+    apt: name=python3-pip,docker.io,docker-compose force_apt_get=yes cache_valid_time=3600
+
+  - name: Git clone repository
+    git:
+      clone: yes
+      update: yes
+      repo: https://github.com/MrArmonius/Flask-IMC-cloud.git
+      dest: /home/azureuser/Flask-IMC-cloud
+
+  - name: Docker compose build image
+    community.docker.docker_compose:
+      build: true
+      project_src: /home/azureuser/Flask-IMC-cloud/
+
+  - name: Docker compose up
+    community.docker.docker_compose:
+      build: false
+      project_src: /home/azureuser/Flask-IMC-cloud/
+      state: present
+
+
